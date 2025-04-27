@@ -1,0 +1,6 @@
+@IncomeService_HostAddress = http://localhost:5059
+
+GET {{IncomeService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
