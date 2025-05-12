@@ -1,10 +1,12 @@
 using ExpenseService.Data;
+using ExpenseService.RabbitMQ;
 using ExpenseService.Repository;
 using ExpenseService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 using System.Security.Claims;
 using System.Text;
 
@@ -44,6 +46,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
+builder.Services.AddSingleton<IConnectionFactory>(_ =>
+    new ConnectionFactory
+    {
+        HostName = "localhost"
+    }
+);
+builder.Services.AddSingleton<IRabbitMQConnection, RabbitMQConnection>();
+builder.Services.AddSingleton<IEventPublisher, EventPublisher>();
     
 
 var app = builder.Build();
@@ -74,5 +85,9 @@ catch(Exception ex)
 {
     logger.LogError("Error applying migrations: {0}", ex.Message);
 }
+
+// start the rabbitmq connection
+var rabbitMQConnection = app.Services.GetRequiredService<IRabbitMQConnection>();
+await rabbitMQConnection.TryConnect();
 
 app.Run();

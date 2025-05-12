@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "Identity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{C53EE39A-7E14-4496-8667-C240A2BF7FE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionService", "TransactionService\TransactionService.csproj", "{30AF93F1-3DBA-48D6-B582-962AA96937DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C53EE39A-7E14-4496-8667-C240A2BF7FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53EE39A-7E14-4496-8667-C240A2BF7FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53EE39A-7E14-4496-8667-C240A2BF7FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30AF93F1-3DBA-48D6-B582-962AA96937DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30AF93F1-3DBA-48D6-B582-962AA96937DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30AF93F1-3DBA-48D6-B582-962AA96937DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30AF93F1-3DBA-48D6-B582-962AA96937DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

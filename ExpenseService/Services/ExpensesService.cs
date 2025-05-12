@@ -1,16 +1,19 @@
 ﻿using ExpenseService.DTOs;
 using ExpenseService.Entities;
+using ExpenseService.RabbitMQ;
 using ExpenseService.Repository;
+using System.Text.Json;
 
 namespace ExpenseService.Services
 {
     public class ExpensesService : IExpensesService
     {
         private readonly IExpenseRepository _expenseRepo;
-
-        public ExpensesService(IExpenseRepository expenseRepository)
+        private readonly IEventPublisher _eventPublisher;
+        public ExpensesService(IExpenseRepository expenseRepository, IServiceProvider serviceProvider)
         {
             _expenseRepo = expenseRepository;
+            _eventPublisher = serviceProvider.GetRequiredService<IEventPublisher>();
         }
 
         public async Task<ExpenseDto> CreateExpense(CreateExpenseDto expense)
@@ -40,6 +43,9 @@ namespace ExpenseService.Services
                 ExpenseCategory = expenseCategory.Name,
                 AccountId = expenseFromDB.AccountId,
             };
+
+            var eventData = JsonSerializer.Serialize(createdExpense);
+            await _eventPublisher.Publish("expense", eventData);
 
             return createdExpense;
         }
