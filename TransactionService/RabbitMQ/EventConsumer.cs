@@ -14,7 +14,7 @@ namespace TransactionService.RabbitMQ
 
         public async Task Consume (string queue)
         {
-            using var channel = await _rabbitMqConnection.CreateChannel();
+            var channel = await _rabbitMqConnection.CreateChannel();
             // declare the queue 
             await channel.QueueDeclareAsync(queue: queue, durable: true, exclusive: false, autoDelete: false);
             
@@ -30,7 +30,7 @@ namespace TransactionService.RabbitMQ
             byte[] body = @event.Body.ToArray();
             string message = Encoding.UTF8.GetString(body);
 
-            Console.Write($"Received message -  {message}");
+            Console.WriteLine($"Received message -  {message}");
 
             // Acknowledge the message
             await  ((AsyncEventingBasicConsumer)sender)
